@@ -32,7 +32,8 @@ exports.job = new nodeio.Job(options, {
             	default:
             		friend.status = status;
             }
-            client.hset("friends:" + gamertag, "status", friend.status, redis.print);     
+            client.hset("friends:" + gamertag, "status", friend.status, redis.print);
+            client.hset("friends:" + gamertag, "last_update", new Date(), redis.print);     
             this.emit(friend);
         });
     }
