@@ -13,6 +13,12 @@ server.get('/friends', function(req, res) {
 	});	
 })
 
+server.get('/friends/online/:online', function(req, res) {
+	friends.getByPresence(req.uriParams.online, function(body) {
+		res.send(200, body);
+	});	
+})
+
 server.get('/friend/:gamertag', function(req, res) {
 	friends.get(req.uriParams.gamertag, function(body) {
 		res.send(200, body);
