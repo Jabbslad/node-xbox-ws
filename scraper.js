@@ -24,6 +24,7 @@ exports.job = new nodeio.Job(options, {
           , 'DCulture'],
     run: function (gamertag) {
         this.getHtml('http://live.xbox.com/en-US/Profile?gamertag=' + encodeURIComponent(gamertag), function (err, $) {
+            var gamerpic = $('img.gamerpic').attribs.src;
             var status = $('.presence').text;
             var gamerscore = $('.gamerscore').text;
             var online = false;
@@ -35,6 +36,7 @@ exports.job = new nodeio.Job(options, {
             		online = true;
             		break;
             }
+            client.hset("friends:" + gamertag, "gamerpic", gamerpic, redis.print);
             client.hset("friends:" + gamertag, "online", online, redis.print);
             client.hset("friends:" + gamertag, "status", status, redis.print);
             client.hset("friends:" + gamertag, "gamerscore", gamerscore, redis.print);
