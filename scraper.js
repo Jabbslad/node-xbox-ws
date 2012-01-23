@@ -21,21 +21,24 @@ exports.job = new nodeio.Job(options, {
 		  , 'Dolchenko'
 		  , 'Papey82'
 		  , 'PUNISHERlaw'
-                  , 'DCulture'],
+          , 'DCulture'],
     run: function (gamertag) {
         this.getHtml('http://live.xbox.com/en-US/Profile?gamertag=' + encodeURIComponent(gamertag), function (err, $) {
-            var friend = {'name': gamertag};
             var status = $('.presence').text;
+            var gamerscore = $('.gamerscore').text;
+            var online = false;
             switch(true) {
             	case /Online Status Unavailable/.test(status):
-            		friend.status = 'Hiding!'
+            		// Catch this
             		break;
-            	default:
-            		friend.status = status;
+            	case /^Online/.test(status):
+            		online = true;
+            		break;
             }
-            client.hset("friends:" + gamertag, "status", friend.status, redis.print);
-            client.hset("friends:" + gamertag, "last_update", new Date(), redis.print);     
-            this.emit(friend);
+            client.hset("friends:" + gamertag, "online", online, redis.print);
+            client.hset("friends:" + gamertag, "status", status, redis.print);
+            client.hset("friends:" + gamertag, "gamerscore", gamerscore, redis.print);
+            this.emit(gamertag);
         });
     }
 });
