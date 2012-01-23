@@ -20,7 +20,8 @@ exports.job = new nodeio.Job(options, {
 		  , 'Korrdorr'
 		  , 'Dolchenko'
 		  , 'Papey82'
-		  , 'PUNISHERlaw'],
+		  , 'PUNISHERlaw'
+                  , 'DCulture'],
     run: function (gamertag) {
         this.getHtml('http://live.xbox.com/en-US/Profile?gamertag=' + encodeURIComponent(gamertag), function (err, $) {
             var friend = {'name': gamertag};
