@@ -25,4 +25,4 @@ server.get('/friend/:gamertag', function(req, res) {
 	});	
 })
 
-server.listen(80);
+server.listen(4567);
