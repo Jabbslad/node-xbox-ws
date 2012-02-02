@@ -48,7 +48,7 @@ exports.job = new nodeio.Job(options, {
             		online = true;
             		break;
             }
-            client.hset("friends:" + gamertag, "gamerpic", gamerpic, redis.print);
+            client.hset("friends:" + gamertag, "gamerpic", gamerpic_url(gamerpic), redis.print);
 			client.hset("friends:" + gamertag, "name", name, redis.print);
 			client.hset("friends:" + gamertag, "location", location, redis.print);
             client.hset("friends:" + gamertag, "rep", rep, redis.print);
@@ -80,4 +80,13 @@ function repCalc(div) {
             break;
     }
     return val;
+}
+
+function gamerpic_url(url) {
+	if(/global/.test(url)) {
+	    url = url.replace("tile/0/1", "tile/0/2");
+	} else {
+	    url = url.replace("avatarpic-s.png", "avatarpic-l.png");
+	}
+	return url;
 }
