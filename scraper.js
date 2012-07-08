@@ -21,8 +21,9 @@ exports.job = new nodeio.Job(options, {
 		  , 'Dolchenko'
 		  , 'Papey82'
 		  , 'PUNISHERlaw'
-          , 'DCulture'
-          , 'Jabbslad'],
+                  , 'DCulture'
+                  , 'Jabbslad'
+                  , 'peteslad'],
     run: function (gamertag) {
         this.getHtml('http://live.xbox.com/en-US/Profile?gamertag=' + encodeURIComponent(gamertag), function (err, $) {
             var gamerpic = $('img.gamerpic').attribs.src;
